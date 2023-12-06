@@ -4,12 +4,25 @@ const NewsModel = require('../models/news')
 const newsValidator = require('../validators/newsValidator')
 const {sucess, fail} = require("../helpers/resposta")
 const auth = require('../helpers/auth')
+const cache = require('express-redis-cache')()
 
-router.get('/search', auth.authenticate, (req, res) => {
+cache.invalidate = (name) => {
+    return (req, res, next) => {
+      const route_name = name ? name : '/news?*';
+      if (!cache.connected) {
+        next();
+        return ;
+      }
+      cache.del(route_name, (err) => console.log(err));
+      next();
+    };
+  };
+
+router.get('/', auth.authenticate, cache.route(), async (req, res) => {
     //parametro
     const term = req.query.term
-
     if (term != null && term != ''){
+        console.log("SEM CACHE")
         NewsModel.search(term).then(news =>{
             if (news != null){
                 res.json({status: true, news: news})
@@ -25,7 +38,7 @@ router.get('/search', auth.authenticate, (req, res) => {
     }
 })
 
-router.post('/', newsValidator.validateNews, auth.authenticate, (req, res) => {
+router.post('/', newsValidator.validateNews, auth.authenticate, cache.invalidate(), async (req, res) => {
     NewsModel.save(req.body).then(news => {
         res.json(sucess("Noticia'"+news.title+"' Cadastrado"))
     }).catch(erro => {
