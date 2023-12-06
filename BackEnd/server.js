@@ -6,12 +6,8 @@ const app = express()
 app.use(express.json())
 
 
-app.use('/install', require("./control/InstallAPI"))
+app.use('/install', require("./routes/installAPI"))
 
 app.listen(3000, () => {
     console.log('Working... http://localhost:3000')
 })
-
-module.exports = {
-    dir:  __dirname
-}
