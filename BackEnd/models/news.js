@@ -38,10 +38,10 @@ module.exports = {
         return news // {count | rows}
     },
 
-    save: async function (title, image) {
+    save: async function (obj) {
         const news = await NewsModel.create({
-            title: title,
-            image: image
+            title: obj.title,
+            image: obj.image
         })
 
         return news

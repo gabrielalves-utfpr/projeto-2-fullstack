@@ -5,6 +5,8 @@ const sequelize = require("../helpers/db")
 const UserModel = require('../models/user')
 const NewsModel = require('../models/news')
 
+const { sucess, fail } = require("../helpers/resposta")
+
 router.get('/', async (req, res) => {
     await sequelize.sync({ force: true })
     try {
@@ -31,7 +33,7 @@ router.get('/', async (req, res) => {
     
 
 } catch (error) {
-    res.json(fail('Falha ao Instalar Banco de Dados' + error.name))
+    return res.json(fail('Falha ao Instalar Banco de Dados' + error.name))
 }
     res.json(sucess('Banco Instalado com Sucesso'))
 })
