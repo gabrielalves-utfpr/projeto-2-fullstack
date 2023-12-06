@@ -32,3 +32,4 @@ router.post('/', newsValidator.validateNews, auth.authenticate, (req, res) => {
         res.status(401).json(fail("Falha ao Cadastrar"))
     })
 })
+module.exports = router

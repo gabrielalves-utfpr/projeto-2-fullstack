@@ -6,6 +6,8 @@ const NewsSchema = Joi.object({
     title: Joi.string()
         .min(2)
         .required(),
+    image: Joi.string()
+        .min(2),
 })
 
 module.exports = {

@@ -5,6 +5,8 @@ require("dotenv").config()
 const app = express()
 app.use(express.json())
 
+app.use('/login', require("./routes/loginAPI"))
+app.use('/news', require("./routes/newsAPI"))
 
 app.use('/install', require("./routes/installAPI"))
 

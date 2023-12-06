@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const UserModel = require('../model/user')
+const UserModel = require('../models/user')
 const userValidator = require('../validators/userValidator')
 const {sucess, fail} = require("../helpers/resposta")
 const jwt = require('jsonwebtoken')
