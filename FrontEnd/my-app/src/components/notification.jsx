@@ -1,4 +1,50 @@
 
+import React, { useEffect } from 'react';
+import useWebSocket from 'react-use-websocket';
+
+const Message = ({ data }) => {
+  return (
+    <div className="message">
+      <p>{data}</p>
+    </div>
+  );
+};
+
+export default function Notification () {
+  const [token, setToken] = React.useState(null);
+  const [messages, setMessages] = React.useState([]); 
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('auth');
+    setToken(jwt);
+  }, []);
+
+  const socketUrl = `ws://localhost:8080?authorization=Bearer%20${token}`;
+
+  const {readyState} = useWebSocket(socketUrl, {
+    onOpen: () => console.log('Conectado ao servidor websocket'),
+    onClose: () => console.log('Desconectado do servidor websocket'),
+    onMessage: (event) => {
+      console.log('Mensagem recebida: ', event.data);
+      setMessages(prevMessages => [event.data, ...prevMessages]);
+    },
+    onError: (error) => console.log('Erro: ', error),
+    share: true,
+    reconnectAttempts: 10,
+    reconnectInterval: 3000
+  });
+  console.log(messages)
+  return (
+    <div className="grid">
+        <p>Conexão: {readyState}</p>
+        {messages.map((message, index) => (
+            
+            <Message key={index} data={message} />
+        ))
+        }
+    </div>
+  );
+};
 
 
 /*

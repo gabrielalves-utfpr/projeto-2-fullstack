@@ -5,10 +5,17 @@ import Search from './search.jsx'
 import Insert from './insert.jsx'
 import newsAPI from '../api/newsAPI.js'
 import load from '../assets/b6e0b072897469.5bf6e79950d23.gif'
+import Notification from './notification.jsx'
+import { useNavigate } from 'react-router-dom';
 
 const Grid = React.lazy(() => delayForDemo(import('./results/gridPhoto.jsx')));
 
 export default function Home(){
+    const navigate = useNavigate();
+    let auth = localStorage.getItem('auth')
+    if(auth === null || auth === '' || auth === ' '){
+        navigate('/login')
+    }
     const [error, setError] = useState(null);
     const resultAreaRef = React.useRef(null);
     const homeAreaRef = React.useRef(null);
@@ -48,6 +55,7 @@ export default function Home(){
     
     return(
         <div className='home'>
+            <Notification/>
             <div className = 'image-container' ref={homeAreaRef}>
                 <div className='row'>
                     <div className='inline-block'>

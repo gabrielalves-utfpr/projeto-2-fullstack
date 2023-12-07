@@ -5,7 +5,7 @@ const auth = require('../helpers/auth');
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', (ws, req) => {
-    auth.authenticate(req, {}, (err) => {
+    auth.authenticateWS(req, {}, (err) => {
         if (err) {
             ws.close();
             return;
