@@ -18,6 +18,7 @@ module.exports = {
             if(req.user != null){
                 let user = await UserModel.isRegistered({username: req.user.username, password: req.user.password})
                 if (user != null){
+                    req.user.id = user.id
                     next()
                 }else{
                     return res.status(401).json({status:false, mensagem:'Credenciais erradas'})

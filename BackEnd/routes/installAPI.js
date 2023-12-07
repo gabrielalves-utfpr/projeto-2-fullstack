@@ -4,6 +4,7 @@ const sequelize = require("../helpers/db")
 
 const UserModel = require('../models/user')
 const NewsModel = require('../models/news')
+const SearchModel = require('../models/search')
 
 const { sucess, fail } = require("../helpers/resposta")
 
