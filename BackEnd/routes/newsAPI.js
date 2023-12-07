@@ -62,7 +62,7 @@ router.post('/', newsValidator.validateNews, auth.authenticate, cache.invalidate
                             console.log(" ["+req.user.id+"] enviou %s para ["+user.id+"]", msg);
                         });
                     }).catch(err =>{
-                        console.log("DEU BOSTA AQUI")
+                        console.log(err)
                     });
             });
         });
