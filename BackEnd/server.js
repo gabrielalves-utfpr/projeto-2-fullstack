@@ -13,6 +13,8 @@ const redisCache = cache({
     port: 6379
   });
 
+const WebSocket = require('ws');
+const WebsocketServer = require('./websocket/websocketServer')
 app.use('/login', require("./routes/loginAPI"))
 app.use('/news', require("./routes/newsAPI"))
 

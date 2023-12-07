@@ -43,6 +43,25 @@ router.get('/', auth.authenticate, searchValidator.validateSearch, cache.route({
 
 router.post('/', newsValidator.validateNews, auth.authenticate, cache.invalidate(), async (req, res) => {
     NewsModel.save(req.body).then(news => {
+        amqp.connect('amqp://localhost', (err, conn) => {
+            if (err) {
+                throw err;
+            }
+
+            conn.createChannel((err, ch) => {
+                if (err) {
+                    throw err;
+                }
+
+                let queue = 'notificationQueue:';
+                let msg = JSON.stringify(news);
+
+                ch.assertQueue(queue, { durable: false });
+                ch.sendToQueue(queue, Buffer.from(msg));
+
+                console.log(" ["+req.user.id+"] enviou %s"+msg);
+            });
+        });
         res.json(sucess("Noticia'"+news.title+"' Cadastrado"))
     }).catch(erro => {
         res.status(401).json(fail("Falha ao Cadastrar"))
