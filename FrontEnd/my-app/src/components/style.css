@@ -1,3 +1,6 @@
+body {
+    background-color: black;
+  }
 
 .home{
     
@@ -35,6 +38,26 @@
 
 }
 
+
+.inline-block{
+    
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.row{
+    margin-top: 100px;
+    display: flex;
+    gap: 20px;
+    /*
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    */
+}
+
 .welcome{
     font-size: 52px;
 }
@@ -50,6 +73,8 @@
 }
 
 .search{
+    
+    text-align: center;
     margin-top: 6%;
 }
 #searchbar {
@@ -59,7 +84,7 @@
     border-radius: 40px;
     border-style: none;
     color: white;
-    width: 25%;
+    width: 70%;
     /*
     background-image: url('/public/outline_search_white_24dp.png');
     background-position: right 15px center;

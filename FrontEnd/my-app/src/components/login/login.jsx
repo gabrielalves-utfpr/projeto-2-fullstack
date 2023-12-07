@@ -22,7 +22,7 @@ export default function Login() {
         try {
             //const response = await axios.post(process.env.REACT_APP_BACKEND_URL+'/login', { username: username, password: password });
             const response = await loginAPI.login(username, password)
-            localStorage.setItem('jwt', response.token);
+            localStorage.setItem('auth', response.token);
             navigate('/');
         } catch (error) {
             console.error('Erro na autenticação', error);

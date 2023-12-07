@@ -66,7 +66,7 @@ router.post('/', newsValidator.validateNews, auth.authenticate, cache.invalidate
                     });
             });
         });
-        res.json(sucess("Noticia'"+news.title+"' Cadastrado"))
+        res.json({status: true, message: "Noticia'"+news.title+"' Cadastrado"})
     }).catch(erro => {
         res.status(401).json(fail("Falha ao Cadastrar: "+ erro.name))
     })

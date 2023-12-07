@@ -2,6 +2,8 @@ import './style.css'
 import React, { useState, Suspense, useEffect } from 'react';
 //import searchAPI from '../../nasaApi/searchApi.js';
 import Search from './search.jsx'
+import Insert from './insert.jsx'
+import newsAPI from '../api/newsAPI.js'
 import load from '../assets/b6e0b072897469.5bf6e79950d23.gif'
 
 const Grid = React.lazy(() => delayForDemo(import('./results/gridPhoto.jsx')));
@@ -11,7 +13,6 @@ export default function Home(){
     const resultAreaRef = React.useRef(null);
     const homeAreaRef = React.useRef(null);
     const [data, setData] = useState(null);
-    const [page, setPage] = useState(1);
     const [searchText, setSearchText] = useState('');
 
     const handleSearch = async (text) => {
@@ -21,29 +22,16 @@ export default function Home(){
             setSearchText(text);
         }
     }
-
-    const handleForwardClick = async () => {
-        const newPage = page+1
-        setPage(newPage);
-        
-    }
-    const handlePreviousClick = async () => {
-        if (page > 0) {
-            const newPage = page-1
-            setPage(newPage);
-            
-            
-        }
-    }
-    /*
+    
     useEffect(()=>{
         (async() => {
             if(searchText !== ''){
                 try {
-                    const response = await searchAPI.search(searchText, page);
+                    const response = await newsAPI.search(searchText);
                     setData(response);
+                    console.log(response)
                     if(response != null){ 
-                        if(response.collection.items.length === 0){
+                        if(response.news.length === 0){
                             homeAreaRef.current.scrollIntoView({ behavior: 'smooth' })
                             setError('NÃO FOI ENCONTRADO NADA')
                         }else{
@@ -56,13 +44,21 @@ export default function Home(){
                 }
     }
     })();
-    }, [page, searchText])
-    */
+    }, [searchText])
+    
     return(
         <div className='home'>
             <div className = 'image-container' ref={homeAreaRef}>
-                <Search onSearch={handleSearch}/>
-                {error && <div className="error">ERROR: {error}</div>}
+                <div className='row'>
+                    <div className='inline-block'>
+                        <Search onSearch={handleSearch}/>
+                        {error && <div className="error">ERROR: {error}</div>}
+                    </div>
+                    <div className='inline-block'>
+                        <Insert/>
+                    </div>
+                    
+                </div>
                 <div className="scrolldown">
                     <h3>Scroll Down</h3>
                     <h3>\↓/</h3>
@@ -70,7 +66,7 @@ export default function Home(){
             </div>
             <div className = "content" ref={resultAreaRef}>
                 <Suspense fallback={<img className='loading' src={load} alt="Loading..." />}>
-                    {data && <Grid data={data} page={page} onForwardClick={handleForwardClick} onPreviousClick={handlePreviousClick}/>}
+                    {data && <Grid data={data} />}
                 </Suspense>
             </div>
         </div>

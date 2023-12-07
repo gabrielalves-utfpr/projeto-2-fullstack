@@ -1,6 +1,6 @@
 
 
-export default function Item ({ img, title, type }) { 
+export default function Item ({ img, title }) { 
   console.log(img)
     return (
         <div
@@ -10,7 +10,7 @@ export default function Item ({ img, title, type }) {
         >
         <div className="card-text">
           <h3>{title}</h3>
-          <p>{type}</p>
+          <p>Image</p>
         </div>
       </div>
     )
