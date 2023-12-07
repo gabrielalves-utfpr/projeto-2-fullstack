@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../helpers/db")
+const { Op } = require('sequelize');
 
 /*
     ? Tabela "Users":
@@ -84,6 +85,12 @@ module.exports = {
             where: {
                 username: username
             }
+        })
+    },
+
+    getExceptId: async function(id){
+        return await UserModel.findAll({
+            where: {id: { [Op.ne]: id}}
         })
     },
 
