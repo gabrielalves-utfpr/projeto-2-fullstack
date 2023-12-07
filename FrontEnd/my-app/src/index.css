@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'nasalization';
+  src: local(''),
+    url('../public/font/nasalization-rg.woff2') format('woff2'),
+    url('../public/font/nasalization-rg.woff') format('woff');
+}
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100;200;300;400;500;600;700;900&display=swap');
+
+
+/*
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +20,32 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+*/
+
+body, html, #root {
+  width: 100%;
+  height: 100%;
+}
+
+*{
+  font-family: 'Geologica';
+  font-weight: 100;
+  color: white;
+}
+
+body{
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  margin: 0px;
+}
+/*Ocultar Barra de rolagem*/
+::-webkit-scrollbar { display: none; }
+html {
+  background-color: black;
+  height: 100%;
+}
+.nasa-font{
+  font-family: 'nasalization';
 }

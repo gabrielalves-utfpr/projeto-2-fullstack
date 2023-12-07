@@ -59,7 +59,7 @@ router.post('/', newsValidator.validateNews, auth.authenticate, cache.invalidate
                             ch.assertQueue(queue, { durable: false });
                             ch.sendToQueue(queue, Buffer.from(msg));
         
-                            console.log(" ["+req.user.id+"] enviou %s para ["+user.id+"]", msg);
+                            console.log(" ["+req.user.username+"] enviou "+msg+" para ["+user.id+"]");
                         });
                     }).catch(err =>{
                         console.log(err)

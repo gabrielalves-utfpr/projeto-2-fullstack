@@ -1,3 +1,29 @@
+import './App.css';
+//import Header from './components/header/header.jsx'
+//<Header/>
+
+import Home from './components/home.jsx'
+import Login from './components/login/login.jsx'
+import {
+  Routes,
+  Route,
+  BrowserRouter
+} from "react-router-dom";
+export default function App() {
+  return (
+    <BrowserRouter>
+        
+        <Routes>
+          <Route path="/*" element={<Home/>}/>
+          <Route path="/login" element={<Login/>}/>
+        </Routes>
+    </BrowserRouter>
+    
+  );
+}
+
+
+/*
 import logo from './logo.svg';
 import './App.css';
 
@@ -23,3 +49,4 @@ function App() {
 }
 
 export default App;
+*/

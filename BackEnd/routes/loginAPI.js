@@ -4,6 +4,7 @@ const UserModel = require('../models/user')
 const userValidator = require('../validators/userValidator')
 const {sucess, fail} = require("../helpers/resposta")
 const jwt = require('jsonwebtoken')
+var cors = require('cors')
 
 /*
 *Rota POST de Login
