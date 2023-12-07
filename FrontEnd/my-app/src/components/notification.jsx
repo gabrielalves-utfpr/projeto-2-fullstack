@@ -5,7 +5,7 @@ import useWebSocket from 'react-use-websocket';
 const Message = ({ data }) => {
   return (
     <div className="message">
-      <p>{data}</p>
+      <p>Nova Inserção: {data}</p>
     </div>
   );
 };
