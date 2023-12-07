@@ -3,9 +3,10 @@ const path = require("path")
 require("dotenv").config()
 const cache = require('express-redis-cache')
 const { xss } = require('express-xss-sanitizer');
+const cors = require('cors')
 
 const app = express()
-app.use(express.json(), xss())
+app.use(express.json(), xss(), cors())
 //app.use(cache.route());
 const redisCache = cache({
     host: 'localhost',

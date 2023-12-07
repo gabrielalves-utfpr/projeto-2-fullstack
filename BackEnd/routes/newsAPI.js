@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const NewsModel = require('../models/news')
 const newsValidator = require('../validators/newsValidator')
-const SearchModel = require('../models/search')
+const searchValidator = require('../validators/searchValidator')
 const {sucess, fail} = require("../helpers/resposta")
 const auth = require('../helpers/auth')
 const cache = require('express-redis-cache')()
@@ -19,7 +19,7 @@ cache.invalidate = (name) => {
     };
   };
 
-router.get('/', auth.authenticate, cache.route({expire: 20}), async (req, res) => {
+router.get('/', auth.authenticate, searchValidator.validateSearch, cache.route({expire: 20}), async (req, res) => {
     //parametro
     const term = req.query.term
     if (term != null && term != ''){
@@ -27,11 +27,7 @@ router.get('/', auth.authenticate, cache.route({expire: 20}), async (req, res) =
         NewsModel.search(term).then(news =>{
             if (news != null){
                 res.json({status: true, news: news})
-                SearchModel.save({userId: req.user.id, term: term}).then(search =>{
-                    console.log("Search Registro Salvo")
-                }).catch(err => {
-                    console.log("Search Registro NÃO Salvo")
-                })
+                
                 
             } else{
                 res.status(400).json(fail("Noticia não encontrado"))
