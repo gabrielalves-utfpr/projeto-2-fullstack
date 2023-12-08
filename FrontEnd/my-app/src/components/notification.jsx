@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import useWebSocket from 'react-use-websocket';
 
 const Message = ({ data }) => {
+  
+  console.log(data)
   return (
     <div className="message">
       <p>Nova Inserção: {data}</p>

@@ -16,6 +16,10 @@ export default function Home(){
     if(auth === null || auth === '' || auth === ' '){
         navigate('/login')
     }
+    const logout = () => {
+        localStorage.removeItem('auth');
+        navigate('/login');
+      };
     const [error, setError] = useState(null);
     const resultAreaRef = React.useRef(null);
     const homeAreaRef = React.useRef(null);
@@ -56,6 +60,7 @@ export default function Home(){
     return(
         <div className='home'>
             <Notification/>
+            <button onClick={logout}>Logout</button>
             <div className = 'image-container' ref={homeAreaRef}>
                 <div className='row'>
                     <div className='inline-block'>
